@@ -1,102 +1,162 @@
 import { motion } from "framer-motion";
+import { cases, labs, stack, links } from "./data.js";
 
-const GH = "https://github.com/HayasMoustapha";
-const STUDIO = "https://governor-studio.vercel.app";
-const EMAIL = "governor-studio@gmail.com";
 const ease = [0.2, 0.8, 0.2, 1];
 
-const stack = ["React", "Next.js", "Node.js", "Python", "TypeScript", "Tailwind", "PostgreSQL", "Docker"];
-
-const projects = [
-  { title: "La Maison Jungle", tag: "E-commerce", color: "#22c55e", slug: "start-react-with-plant-store-project",
-    desc: "Boutique de plantes : catalogue filtrable, fiches, panier animé avec persistance." },
-  { title: "Shiny", tag: "Web app", color: "#7c5cff", slug: "shiny-agency",
-    desc: "Mise en relation freelance : questionnaire animé → recommandations, dark/light." },
-  { title: "Time Tracking", tag: "Dashboard", color: "#5747ea", slug: "time-tracking-dashboard",
-    desc: "Suivi du temps : bascule jour/semaine/mois, chiffres animés par activité." },
-  { title: "Lumen", tag: "Landing", color: "#a78bfa", slug: "sign-up-form",
-    desc: "Landing waitlist : validation en direct, état de succès animé, social proof." },
-  { title: "Analytics", tag: "Widget", color: "#38bdf8", slug: "stats-preview",
-    desc: "Aperçu de performance : KPIs animés, sparkline, sélection de période." },
-  { title: "Audit de présence", tag: "Composant", color: "#ec4899", slug: "summary",
-    desc: "Score de présence en ligne : anneau animé, détail par canal, pistes d'action." },
-];
-
-export default function App() {
+function Reveal({ children, delay = 0, className = "" }) {
   return (
-    <div className="mx-auto max-w-5xl px-5 sm:px-8">
-      {/* Hero */}
-      <header className="flex flex-col gap-6 pt-20 pb-14 sm:pt-28">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}>
-          <div className="flex items-center gap-4">
-            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent text-xl font-bold text-[#04121a]">HM</span>
-            <div>
-              <p className="text-sm font-medium text-accent">Développeur web full-stack</p>
-              <h1 className="font-display text-3xl font-bold leading-tight sm:text-4xl">Hayas Moustapha</h1>
-            </div>
-          </div>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
-            Je conçois et je livre des applications web et des plateformes métier — du front au back —
-            avec une exigence de fiabilité. Fondateur de{" "}
-            <a href={STUDIO} target="_blank" rel="noopener noreferrer" className="font-medium text-accent hover:underline">Governor Studio</a>,
-            studio de livraison logicielle gouverné.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <a href="#projets" className="rounded-xl bg-accent px-5 py-3 text-sm font-medium text-[#04121a] transition-transform hover:-translate-y-0.5">Voir les projets</a>
-            <a href={STUDIO} target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/15 px-5 py-3 text-sm font-medium transition-colors hover:border-accent/50">Governor Studio →</a>
-            <a href={GH} target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/15 px-5 py-3 text-sm font-medium transition-colors hover:border-accent/50">GitHub</a>
-          </div>
-        </motion.div>
+    <motion.div className={className} initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-70px" }} transition={{ duration: 0.7, delay, ease }}>
+      {children}
+    </motion.div>
+  );
+}
 
-        {/* Stack strip */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.6 }}
-          className="mt-2 flex flex-wrap gap-2">
-          {stack.map((s) => (
-            <span key={s} className="rounded-full border border-white/10 bg-card px-3 py-1 text-xs text-white/60">{s}</span>
-          ))}
-        </motion.div>
-      </header>
-
-      {/* Projects */}
-      <section id="projets" className="scroll-mt-16 border-t border-white/10 py-14">
-        <div className="flex items-end justify-between">
-          <div>
-            <span className="text-sm font-medium text-accent">Réalisations</span>
-            <h2 className="font-display mt-1 text-2xl font-bold sm:text-3xl">Projets en ligne</h2>
-          </div>
-          <p className="hidden text-sm text-white/40 sm:block">Démos live · code sur GitHub</p>
+function Nav() {
+  return (
+    <header className="sticky top-0 z-40 border-b border-line/60 bg-paper/85 backdrop-blur">
+      <nav className="mx-auto flex h-16 max-w-4xl items-center justify-between px-5 sm:px-6">
+        <a href="#top" className="flex items-center gap-2.5">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent font-display text-sm font-bold text-surface">M</span>
+          <span className="font-display text-lg font-semibold">Moustapha</span>
+        </a>
+        <div className="flex items-center gap-5 text-sm text-muted">
+          <a href="#projets" className="hidden transition-colors hover:text-ink sm:block">Projets</a>
+          <a href="#labs" className="hidden transition-colors hover:text-ink sm:block">Labs</a>
+          <a href={links.gh} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-ink">GitHub</a>
+          <a href="#contact" className="rounded-full bg-ink px-4 py-2 font-medium text-paper transition-transform hover:-translate-y-0.5">Me contacter</a>
         </div>
+      </nav>
+    </header>
+  );
+}
 
-        <div className="mt-8 grid gap-5 sm:grid-cols-2">
-          {projects.map((p, i) => (
-            <motion.div key={p.slug}
-              initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.07, ease }}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-card p-6 transition-all hover:-translate-y-1 hover:border-white/25">
-              <span className="absolute inset-x-0 top-0 h-1" style={{ background: p.color }} />
-              <span className="w-fit rounded-full px-2.5 py-1 text-xs font-medium" style={{ background: `${p.color}22`, color: p.color }}>{p.tag}</span>
-              <h3 className="font-display mt-4 text-xl font-semibold">{p.title}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-white/60">{p.desc}</p>
-              <div className="mt-5 flex gap-3 text-sm font-medium">
-                <a href={`https://hayasmoustapha.github.io/${p.slug}/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Voir la démo →</a>
-                <a href={`${GH}/${p.slug}`} target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white">Code</a>
+function Hero() {
+  return (
+    <section id="top" className="mx-auto max-w-4xl px-5 pb-10 pt-16 sm:px-6 sm:pt-24">
+      <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, ease }}
+        className="flex h-16 w-16 items-center justify-center rounded-2xl bg-accent font-display text-2xl font-bold text-surface shadow-lg">
+        M
+      </motion.div>
+      <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.05, ease }}
+        className="font-display mt-7 text-[clamp(2.6rem,7vw,4.6rem)] font-semibold leading-[1.02]">
+        Salut, moi c'est <span className="text-accent">Moustapha</span>.
+      </motion.h1>
+      <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15, ease }}
+        className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+        Développeur full-stack. Je conçois et je livre des produits web et des plateformes
+        métier — du front au back — avec un faible pour les projets exigeants où la fiabilité
+        compte vraiment. Je suis aussi le fondateur de{" "}
+        <a href={links.studio} target="_blank" rel="noopener noreferrer" className="font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent">Governor&nbsp;Studio</a>.
+      </motion.p>
+      <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.25, ease }}
+        className="mt-8 flex flex-wrap gap-3">
+        <a href="#projets" className="rounded-full bg-accent px-5 py-3 text-sm font-medium text-surface transition-transform hover:-translate-y-0.5">Voir mes projets</a>
+        <a href="#contact" className="rounded-full border border-ink/20 px-5 py-3 text-sm font-medium transition-colors hover:border-accent">Travaillons ensemble</a>
+      </motion.div>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
+        className="mt-10 flex flex-wrap gap-x-4 gap-y-2">
+        {stack.map((s) => <span key={s} className="font-mono text-xs text-faint">{s}</span>)}
+      </motion.div>
+    </section>
+  );
+}
+
+function Cases() {
+  return (
+    <section id="projets" className="mx-auto max-w-4xl scroll-mt-20 px-5 py-16 sm:px-6 sm:py-24">
+      <Reveal>
+        <p className="label">Projets sélectionnés</p>
+        <h2 className="font-display mt-2 text-3xl font-semibold sm:text-4xl">Ce que je construis</h2>
+        <p className="mt-3 max-w-xl text-muted">Des livraisons clientes réelles (présentées de façon anonymisée, données de démonstration).</p>
+      </Reveal>
+
+      <div className="mt-14 flex flex-col gap-20">
+        {cases.map((c, i) => (
+          <motion.article key={c.title}
+            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, ease }}
+            className={`grid items-center gap-7 lg:grid-cols-2 lg:gap-12 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
+            <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_24px_50px_-30px_rgba(42,36,32,0.5)]">
+              <img src={c.img} alt={c.title} loading="lazy" className="aspect-[16/10] w-full object-cover object-top" />
+            </div>
+            <div>
+              <p className="label !text-faint">{c.sector}</p>
+              <h3 className="font-display mt-2 text-2xl font-semibold">{c.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted"><span className="font-medium text-ink">L'enjeu — </span>{c.problem}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted"><span className="font-medium text-ink">Livré — </span>{c.result}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {c.stack.map((s) => <span key={s} className="rounded-md border border-line bg-surface px-2.5 py-1 font-mono text-[11px] text-muted">{s}</span>)}
+              </div>
+              <div className="mt-5 flex gap-6 border-t border-line pt-4">
+                {c.metrics.map((m) => (
+                  <div key={m.v}><p className="font-display text-lg font-semibold text-accent">{m.v}</p>{m.l && <p className="text-[11px] text-faint">{m.l}</p>}</div>
+                ))}
+              </div>
+            </div>
+          </motion.article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Labs() {
+  return (
+    <section id="labs" className="border-y border-line bg-surface/50 py-16 sm:py-20">
+      <div className="mx-auto max-w-4xl px-5 sm:px-6">
+        <Reveal>
+          <p className="label">Labs</p>
+          <h2 className="font-display mt-2 text-3xl font-semibold sm:text-4xl">Petits projets, en ligne</h2>
+          <p className="mt-3 max-w-xl text-muted">Des mini-produits que je reconstruis pour le plaisir — démos cliquables, code ouvert.</p>
+        </Reveal>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {labs.map((p, i) => (
+            <motion.div key={p.slug} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.06 }}
+              className="flex flex-col rounded-2xl border border-line bg-surface p-5 transition-transform hover:-translate-y-1">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-accent">{p.tag}</span>
+              <h3 className="font-display mt-2 text-lg font-semibold">{p.title}</h3>
+              <p className="mt-1 flex-1 text-sm text-muted">{p.desc}</p>
+              <div className="mt-4 flex gap-4 text-sm font-medium">
+                <a href={`${links.demo}/${p.slug}/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Démo →</a>
+                <a href={`${links.gh}/${p.slug}`} target="_blank" rel="noopener noreferrer" className="text-faint hover:text-ink">Code</a>
               </div>
             </motion.div>
           ))}
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      {/* Contact */}
-      <footer id="contact" className="border-t border-white/10 py-12">
-        <h2 className="font-display text-2xl font-bold">Travaillons ensemble.</h2>
-        <p className="mt-2 max-w-md text-white/60">Un projet, une mission, une idée à cadrer ? Écrivez-moi.</p>
-        <div className="mt-5 flex flex-wrap gap-4 text-sm">
-          <a href={`mailto:${EMAIL}`} className="rounded-xl bg-accent px-5 py-3 font-medium text-[#04121a]">{EMAIL}</a>
-          <a href={GH} target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/15 px-5 py-3 font-medium hover:border-accent/50">GitHub</a>
-          <a href={STUDIO} target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/15 px-5 py-3 font-medium hover:border-accent/50">Governor Studio</a>
+function Contact() {
+  return (
+    <section id="contact" className="mx-auto max-w-4xl scroll-mt-20 px-5 py-20 sm:px-6">
+      <Reveal>
+        <h2 className="font-display text-[clamp(2rem,5vw,3.2rem)] font-semibold leading-tight">Un projet en tête ?<br />Parlons-en.</h2>
+        <p className="mt-4 max-w-md text-muted">Mission, produit à construire, ou idée à cadrer — écrivez-moi, je réponds vite.</p>
+        <div className="mt-7 flex flex-wrap gap-3 text-sm">
+          <a href={`mailto:${links.email}`} className="rounded-full bg-accent px-5 py-3 font-medium text-surface">{links.email}</a>
+          <a href={links.gh} target="_blank" rel="noopener noreferrer" className="rounded-full border border-ink/20 px-5 py-3 font-medium hover:border-accent">GitHub</a>
+          <a href={links.studio} target="_blank" rel="noopener noreferrer" className="rounded-full border border-ink/20 px-5 py-3 font-medium hover:border-accent">Governor Studio</a>
         </div>
-        <p className="mt-10 text-xs text-white/30">© {new Date().getFullYear()} Hayas Moustapha · construit avec React, Tailwind & Framer Motion.</p>
-      </footer>
-    </div>
+      </Reveal>
+      <p className="mt-16 border-t border-line pt-6 text-xs text-faint">© {new Date().getFullYear()} Moustapha Hayas · construit avec React, Tailwind &amp; Framer Motion.</p>
+    </section>
+  );
+}
+
+export default function App() {
+  return (
+    <>
+      <Nav />
+      <main>
+        <Hero />
+        <Cases />
+        <Labs />
+        <Contact />
+      </main>
+    </>
   );
 }
