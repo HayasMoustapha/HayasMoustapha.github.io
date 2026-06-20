@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
-import { cases, labs, stack, links } from "./data.js";
+import { links, stats, stack, featured, github } from "./data.js";
 
 const ease = [0.2, 0.8, 0.2, 1];
 
 function Reveal({ children, delay = 0, className = "" }) {
   return (
-    <motion.div className={className} initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }}
+    <motion.div className={className} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-70px" }} transition={{ duration: 0.7, delay, ease }}>
       {children}
     </motion.div>
@@ -14,17 +14,13 @@ function Reveal({ children, delay = 0, className = "" }) {
 
 function Nav() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line/60 bg-paper/85 backdrop-blur">
-      <nav className="mx-auto flex h-16 max-w-4xl items-center justify-between px-5 sm:px-6">
-        <a href="#top" className="flex items-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent font-display text-sm font-bold text-surface">M</span>
-          <span className="font-display text-lg font-semibold">Moustapha</span>
-        </a>
+    <header className="sticky top-0 z-40 border-b border-line bg-bg/70 backdrop-blur-xl">
+      <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-5 sm:px-6">
+        <a href="#top" className="font-display text-lg font-bold">MH<span className="gradient-text">.</span></a>
         <div className="flex items-center gap-5 text-sm text-muted">
           <a href="#projets" className="hidden transition-colors hover:text-ink sm:block">Projets</a>
-          <a href="#labs" className="hidden transition-colors hover:text-ink sm:block">Labs</a>
-          <a href={links.gh} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-ink">GitHub</a>
-          <a href="#contact" className="rounded-full bg-ink px-4 py-2 font-medium text-paper transition-transform hover:-translate-y-0.5">Me contacter</a>
+          <a href="#github" className="hidden transition-colors hover:text-ink sm:block">GitHub</a>
+          <a href="#contact" className="rounded-full bg-gradient-to-r from-violet to-fuchsia px-4 py-2 font-medium text-white transition-transform hover:-translate-y-0.5">Contact</a>
         </div>
       </nav>
     </header>
@@ -33,66 +29,86 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="top" className="mx-auto max-w-4xl px-5 pb-10 pt-16 sm:px-6 sm:pt-24">
-      <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, ease }}
-        className="flex h-16 w-16 items-center justify-center rounded-2xl bg-accent font-display text-2xl font-bold text-surface shadow-lg">
-        M
-      </motion.div>
-      <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.05, ease }}
-        className="font-display mt-7 text-[clamp(2.6rem,7vw,4.6rem)] font-semibold leading-[1.02]">
-        Salut, moi c'est <span className="text-accent">Moustapha</span>.
-      </motion.h1>
-      <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15, ease }}
-        className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-        Développeur full-stack. Je conçois et je livre des produits web et des plateformes
-        métier — du front au back — avec un faible pour les projets exigeants où la fiabilité
-        compte vraiment. Je suis aussi le fondateur de{" "}
-        <a href={links.studio} target="_blank" rel="noopener noreferrer" className="font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent">Governor&nbsp;Studio</a>.
-      </motion.p>
-      <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.25, ease }}
-        className="mt-8 flex flex-wrap gap-3">
-        <a href="#projets" className="rounded-full bg-accent px-5 py-3 text-sm font-medium text-surface transition-transform hover:-translate-y-0.5">Voir mes projets</a>
-        <a href="#contact" className="rounded-full border border-ink/20 px-5 py-3 text-sm font-medium transition-colors hover:border-accent">Travaillons ensemble</a>
-      </motion.div>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
-        className="mt-10 flex flex-wrap gap-x-4 gap-y-2">
-        {stack.map((s) => <span key={s} className="font-mono text-xs text-faint">{s}</span>)}
-      </motion.div>
+    <section id="top" className="mx-auto max-w-5xl px-5 pb-12 pt-14 sm:px-6 sm:pt-20">
+      <div className="grid auto-rows-[minmax(0,auto)] gap-4 sm:grid-cols-3">
+        {/* Intro — large */}
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}
+          className="glass flex flex-col justify-between p-7 sm:col-span-2 sm:row-span-2 sm:p-9">
+          <div>
+            <span className="chip">disponible pour missions</span>
+            <h1 className="font-display mt-5 text-[clamp(2.4rem,6vw,4rem)] font-extrabold leading-[1.02]">
+              Moustapha Hayas.<br /><span className="gradient-text">Je construis des produits qui tiennent.</span>
+            </h1>
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-muted sm:text-lg">
+              Développeur full-stack — du front au back. Plateformes web, SaaS multi-tenant,
+              microservices, dashboards. J'aime les projets exigeants où la fiabilité compte.
+            </p>
+          </div>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <a href="#projets" className="rounded-full bg-gradient-to-r from-violet to-fuchsia px-5 py-3 text-sm font-medium text-white transition-transform hover:-translate-y-0.5">Voir mes projets</a>
+            <a href={links.gh} target="_blank" rel="noopener noreferrer" className="rounded-full border border-line px-5 py-3 text-sm font-medium transition-colors hover:border-violet/50">GitHub</a>
+          </div>
+        </motion.div>
+
+        {/* Avatar */}
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.08, ease }}
+          className="glass flex items-center justify-center p-8">
+          <span className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-violet via-fuchsia to-blue font-display text-4xl font-extrabold text-white shadow-2xl">MH</span>
+        </motion.div>
+
+        {/* Studio */}
+        <motion.a href={links.studio} target="_blank" rel="noopener noreferrer"
+          initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.16, ease }}
+          className="glass glass-hover flex flex-col justify-between p-6">
+          <span className="font-mono text-xs text-faint">je dirige</span>
+          <div>
+            <p className="font-display text-xl font-bold">Governor Studio</p>
+            <p className="mt-1 text-sm text-muted">Studio de livraison logicielle gouverné →</p>
+          </div>
+        </motion.a>
+      </div>
+
+      {/* Stats + stack */}
+      <div className="mt-4 grid gap-4 sm:grid-cols-3">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
+          className="glass flex items-center justify-around p-5 sm:col-span-1">
+          {stats.map((s) => (
+            <div key={s.l} className="text-center">
+              <p className="gradient-text font-display text-2xl font-extrabold">{s.v}</p>
+              <p className="text-[11px] text-faint">{s.l}</p>
+            </div>
+          ))}
+        </motion.div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}
+          className="glass flex flex-wrap items-center gap-2 p-5 sm:col-span-2">
+          {stack.map((s) => <span key={s} className="chip">{s}</span>)}
+        </motion.div>
+      </div>
     </section>
   );
 }
 
-function Cases() {
+function Featured() {
   return (
-    <section id="projets" className="mx-auto max-w-4xl scroll-mt-20 px-5 py-16 sm:px-6 sm:py-24">
+    <section id="projets" className="mx-auto max-w-5xl scroll-mt-20 px-5 py-16 sm:px-6 sm:py-20">
       <Reveal>
-        <p className="label">Projets sélectionnés</p>
-        <h2 className="font-display mt-2 text-3xl font-semibold sm:text-4xl">Ce que je construis</h2>
-        <p className="mt-3 max-w-xl text-muted">Des livraisons clientes réelles (présentées de façon anonymisée, données de démonstration).</p>
+        <span className="font-mono text-xs uppercase tracking-[0.18em] text-violet">Projets phares</span>
+        <h2 className="font-display mt-2 text-3xl font-bold sm:text-4xl">Des livraisons réelles</h2>
+        <p className="mt-3 max-w-2xl text-muted">Projets clients (anonymisés, données de démonstration). Le code est privé.</p>
       </Reveal>
-
-      <div className="mt-14 flex flex-col gap-20">
-        {cases.map((c, i) => (
-          <motion.article key={c.title}
-            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, ease }}
-            className={`grid items-center gap-7 lg:grid-cols-2 lg:gap-12 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
-            <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_24px_50px_-30px_rgba(42,36,32,0.5)]">
+      <div className="mt-10 grid gap-5 lg:grid-cols-2">
+        {featured.map((c, i) => (
+          <motion.article key={c.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: i * 0.06, ease }} className="glass glass-hover overflow-hidden">
+            <div className="overflow-hidden border-b border-line">
               <img src={c.img} alt={c.title} loading="lazy" className="aspect-[16/10] w-full object-cover object-top" />
             </div>
-            <div>
-              <p className="label !text-faint">{c.sector}</p>
-              <h3 className="font-display mt-2 text-2xl font-semibold">{c.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted"><span className="font-medium text-ink">L'enjeu — </span>{c.problem}</p>
-              <p className="mt-2 text-sm leading-relaxed text-muted"><span className="font-medium text-ink">Livré — </span>{c.result}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {c.stack.map((s) => <span key={s} className="rounded-md border border-line bg-surface px-2.5 py-1 font-mono text-[11px] text-muted">{s}</span>)}
-              </div>
-              <div className="mt-5 flex gap-6 border-t border-line pt-4">
-                {c.metrics.map((m) => (
-                  <div key={m.v}><p className="font-display text-lg font-semibold text-accent">{m.v}</p>{m.l && <p className="text-[11px] text-faint">{m.l}</p>}</div>
-                ))}
-              </div>
+            <div className="p-6">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-fuchsia">{c.sector}</span>
+              <h3 className="font-display mt-1.5 text-xl font-bold">{c.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{c.desc}</p>
+              <div className="mt-4 flex flex-wrap gap-2">{c.stack.map((s) => <span key={s} className="chip">{s}</span>)}</div>
+              <p className="mt-4 font-mono text-xs text-faint">{c.metric}</p>
             </div>
           </motion.article>
         ))}
@@ -101,30 +117,41 @@ function Cases() {
   );
 }
 
-function Labs() {
+function GitHub() {
   return (
-    <section id="labs" className="border-y border-line bg-surface/50 py-16 sm:py-20">
-      <div className="mx-auto max-w-4xl px-5 sm:px-6">
-        <Reveal>
-          <p className="label">Labs</p>
-          <h2 className="font-display mt-2 text-3xl font-semibold sm:text-4xl">Petits projets, en ligne</h2>
-          <p className="mt-3 max-w-xl text-muted">Des mini-produits que je reconstruis pour le plaisir — démos cliquables, code ouvert.</p>
-        </Reveal>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {labs.map((p, i) => (
-            <motion.div key={p.slug} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.06 }}
-              className="flex flex-col rounded-2xl border border-line bg-surface p-5 transition-transform hover:-translate-y-1">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-accent">{p.tag}</span>
-              <h3 className="font-display mt-2 text-lg font-semibold">{p.title}</h3>
-              <p className="mt-1 flex-1 text-sm text-muted">{p.desc}</p>
-              <div className="mt-4 flex gap-4 text-sm font-medium">
-                <a href={`${links.demo}/${p.slug}/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Démo →</a>
-                <a href={`${links.gh}/${p.slug}`} target="_blank" rel="noopener noreferrer" className="text-faint hover:text-ink">Code</a>
-              </div>
-            </motion.div>
-          ))}
+    <section id="github" className="mx-auto max-w-5xl scroll-mt-20 px-5 py-16 sm:px-6 sm:py-20">
+      <Reveal className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <span className="font-mono text-xs uppercase tracking-[0.18em] text-blue">Open source</span>
+          <h2 className="font-display mt-2 text-3xl font-bold sm:text-4xl">Sur mon GitHub</h2>
+          <p className="mt-3 max-w-2xl text-muted">Un aperçu de mon travail public — du backend microservices aux interfaces web.</p>
         </div>
+        <a href={links.gh} target="_blank" rel="noopener noreferrer" className="rounded-full border border-line px-4 py-2 text-sm font-medium transition-colors hover:border-blue/50">Voir tous les repos →</a>
+      </Reveal>
+
+      <div className="mt-10 flex flex-col gap-8">
+        {github.map((g) => (
+          <div key={g.cat}>
+            <div className="flex items-center gap-2.5">
+              <span className="h-2.5 w-2.5 rounded-full" style={{ background: g.color }} />
+              <h3 className="font-display text-lg font-semibold">{g.cat}</h3>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {g.repos.map((r, i) => (
+                <motion.a key={r.name} href={`${links.gh}/${r.name}`} target="_blank" rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.04 }}
+                  className="glass glass-hover flex flex-col p-4">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-sm font-medium text-ink">{r.name}</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-faint"><path d="M7 17L17 7M7 7h10v10" /></svg>
+                  </div>
+                  <p className="mt-1.5 flex-1 text-xs leading-relaxed text-muted">{r.desc}</p>
+                  {r.demo && <a href={`${links.demo}/${r.demo}/`} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="mt-2 w-fit font-mono text-[11px] text-violet hover:underline">démo en ligne →</a>}
+                </motion.a>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -132,17 +159,19 @@ function Labs() {
 
 function Contact() {
   return (
-    <section id="contact" className="mx-auto max-w-4xl scroll-mt-20 px-5 py-20 sm:px-6">
-      <Reveal>
-        <h2 className="font-display text-[clamp(2rem,5vw,3.2rem)] font-semibold leading-tight">Un projet en tête ?<br />Parlons-en.</h2>
-        <p className="mt-4 max-w-md text-muted">Mission, produit à construire, ou idée à cadrer — écrivez-moi, je réponds vite.</p>
-        <div className="mt-7 flex flex-wrap gap-3 text-sm">
-          <a href={`mailto:${links.email}`} className="rounded-full bg-accent px-5 py-3 font-medium text-surface">{links.email}</a>
-          <a href={links.gh} target="_blank" rel="noopener noreferrer" className="rounded-full border border-ink/20 px-5 py-3 font-medium hover:border-accent">GitHub</a>
-          <a href={links.studio} target="_blank" rel="noopener noreferrer" className="rounded-full border border-ink/20 px-5 py-3 font-medium hover:border-accent">Governor Studio</a>
+    <section id="contact" className="mx-auto max-w-5xl scroll-mt-20 px-5 py-20 sm:px-6">
+      <Reveal className="glass p-8 text-center sm:p-14">
+        <h2 className="font-display text-[clamp(2rem,5vw,3.4rem)] font-extrabold leading-tight">
+          On construit quelque chose <span className="gradient-text">ensemble</span> ?
+        </h2>
+        <p className="mx-auto mt-4 max-w-md text-muted">Mission, produit, ou idée à cadrer — écrivez-moi, je réponds vite.</p>
+        <div className="mt-7 flex flex-wrap justify-center gap-3 text-sm">
+          <a href={`mailto:${links.email}`} className="rounded-full bg-gradient-to-r from-violet to-fuchsia px-6 py-3 font-medium text-white">{links.email}</a>
+          <a href={links.gh} target="_blank" rel="noopener noreferrer" className="rounded-full border border-line px-6 py-3 font-medium hover:border-violet/50">GitHub</a>
+          <a href={links.studio} target="_blank" rel="noopener noreferrer" className="rounded-full border border-line px-6 py-3 font-medium hover:border-violet/50">Governor Studio</a>
         </div>
       </Reveal>
-      <p className="mt-16 border-t border-line pt-6 text-xs text-faint">© {new Date().getFullYear()} Moustapha Hayas · construit avec React, Tailwind &amp; Framer Motion.</p>
+      <p className="mt-10 text-center text-xs text-faint">© {new Date().getFullYear()} Moustapha Hayas · React · Tailwind · Framer Motion</p>
     </section>
   );
 }
@@ -150,11 +179,12 @@ function Contact() {
 export default function App() {
   return (
     <>
+      <div className="mesh"><span className="blob blob-1" /><span className="blob blob-2" /><span className="blob blob-3" /></div>
       <Nav />
       <main>
         <Hero />
-        <Cases />
-        <Labs />
+        <Featured />
+        <GitHub />
         <Contact />
       </main>
     </>

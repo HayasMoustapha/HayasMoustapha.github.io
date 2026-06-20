@@ -1,55 +1,53 @@
 const GH = "https://github.com/HayasMoustapha";
+const DEMO = "https://hayasmoustapha.github.io";
 
-// Real client projects (private repos) — anonymized, demo-data screenshots.
-export const cases = [
-  {
-    sector: "Secteur public",
-    title: "Plateforme d'état civil",
-    img: "/cases/civilcert.png",
-    problem: "Dématérialiser déclarations et certificats d'état civil à l'échelle d'une administration, avec fiabilité et traçabilité.",
-    result: "Architecture microservices (déclaration, certification, portail public, super-admin), messagerie RabbitMQ en cluster, déploiement Docker. Audit technique et manuel de test livrés.",
-    stack: ["Next.js", "Python", "RabbitMQ", "Docker"],
-    metrics: [{ v: "338", l: "commits" }, { v: "8+", l: "services" }],
-  },
-  {
-    sector: "Éducation · SaaS",
-    title: "SaaS multi-tenant",
-    img: "/cases/umatic.png",
-    problem: "Gérer et mettre en réseau des dizaines de centres, données isolées, sur web et mobile.",
-    result: "Plateforme multi-tenant : services backend (auth, notifications), application mobile, design-system partagé, déploiement Docker de production. Support i18n / RTL.",
-    stack: ["Multi-tenant", "Microservices", "Mobile", "Docker"],
-    metrics: [{ v: "127", l: "commits" }, { v: "web+mobile", l: "" }],
-  },
-  {
-    sector: "Événementiel",
-    title: "Application de gestion d'événements",
-    img: "/cases/eventflow.png",
-    problem: "Planifier et coordonner des événements, connexion sécurisée, interface fidèle à une maquette Figma.",
-    result: "Application full-stack : API backend, frontend, authentification Google OAuth, intégration soignée de la maquette en code.",
-    stack: ["Full-stack", "Google OAuth", "Figma → code"],
-    metrics: [{ v: "full-stack", l: "" }, { v: "OAuth", l: "sécurité" }],
-  },
-  {
-    sector: "Design · ERP",
-    title: "Thème Odoo sur-mesure",
-    img: "/cases/odoo-bao.png",
-    problem: "Donner à un ERP Odoo une interface moderne et cohérente (achats, stock, produits) sans casser le standard.",
-    result: "Thèmes Odoo packagés (manifest + assets) : interface modernisée, cohérente et réutilisable sur plusieurs déploiements.",
-    stack: ["Odoo", "CSS", "Design system"],
-    metrics: [{ v: "module", l: "packagé" }, { v: "réutilisable", l: "" }],
-  },
+export const links = { gh: GH, studio: "https://governor-studio.vercel.app", email: "governor-studio@gmail.com", demo: DEMO };
+
+export const stats = [
+  { v: "17+", l: "repos publics" },
+  { v: "6", l: "démos en ligne" },
+  { v: "Full-stack", l: "front → back" },
 ];
 
-// Public, deployed mini-products
-export const labs = [
-  { title: "La Maison Jungle", tag: "E-commerce", slug: "start-react-with-plant-store-project", desc: "Boutique de plantes : catalogue, panier animé." },
-  { title: "Shiny", tag: "Web app", slug: "shiny-agency", desc: "Mise en relation freelance, questionnaire → reco." },
-  { title: "Time Tracking", tag: "Dashboard", slug: "time-tracking-dashboard", desc: "Suivi du temps, chiffres animés." },
-  { title: "Lumen", tag: "Landing", slug: "sign-up-form", desc: "Waitlist, validation en direct." },
-  { title: "Analytics", tag: "Widget", slug: "stats-preview", desc: "KPIs animés, sparkline, périodes." },
-  { title: "Audit présence", tag: "Composant", slug: "summary", desc: "Score de présence en ligne." },
+export const stack = ["React", "Next.js", "Node.js", "Python", "TypeScript", "Tailwind", "PostgreSQL", "RabbitMQ", "Docker", "React Native", "Odoo"];
+
+// Projets phares (repos privés clients) — anonymisés, vraies captures, données de démo
+export const featured = [
+  { sector: "Secteur public", title: "Plateforme d'état civil", img: "/cases/civilcert.png",
+    desc: "Déclarations & certificats à l'échelle d'une administration. Architecture microservices, RabbitMQ en cluster, Docker.",
+    stack: ["Next.js", "Python", "RabbitMQ", "Docker"], metric: "338 commits · 8+ services" },
+  { sector: "Éducation · SaaS", title: "SaaS multi-tenant", img: "/cases/umatic.png",
+    desc: "Réseau de centres, données isolées, web + mobile. Auth, notifications, design-system, i18n / RTL.",
+    stack: ["Multi-tenant", "Mobile", "Microservices", "Docker"], metric: "127 commits · web + mobile" },
+  { sector: "Événementiel", title: "Gestion d'événements", img: "/cases/eventflow.png",
+    desc: "App full-stack : API, frontend, Google OAuth, intégration Figma → code soignée.",
+    stack: ["Full-stack", "Google OAuth", "API"], metric: "full-stack livré" },
+  { sector: "Design · ERP", title: "Thème Odoo sur-mesure", img: "/cases/odoo-bao.png",
+    desc: "Interface ERP modernisée et cohérente (achats, stock, produits), packagée et réutilisable.",
+    stack: ["Odoo", "CSS", "Design system"], metric: "module réutilisable" },
 ];
 
-export const stack = ["React", "Next.js", "Node.js", "Python", "TypeScript", "Tailwind", "PostgreSQL", "RabbitMQ", "Docker", "Odoo"];
-
-export const links = { gh: GH, studio: "https://governor-studio.vercel.app", email: "governor-studio@gmail.com", demo: "https://hayasmoustapha.github.io" };
+// GitHub présenté par catégorie (repos publics)
+export const github = [
+  { cat: "Microservices & APIs", color: "#22c55e", repos: [
+    { name: "event-planner-auth", desc: "Service d'authentification (Node.js)." },
+    { name: "payment-service", desc: "Service de paiement." },
+    { name: "ticket-generator-service", desc: "Génération de billets." },
+    { name: "notifivation-service", desc: "Service de notifications." },
+    { name: "scan-validation-service", desc: "Validation de scan / contrôle." },
+    { name: "event-management-api", desc: "API de gestion d'événements." },
+  ]},
+  { cat: "Applications & démos web", color: "#a855f7", repos: [
+    { name: "shiny-agency", desc: "App de mise en relation freelance.", demo: "shiny-agency" },
+    { name: "start-react-with-plant-store-project", desc: "Boutique e-commerce de plantes.", demo: "start-react-with-plant-store-project" },
+    { name: "time-tracking-dashboard", desc: "Dashboard de suivi du temps.", demo: "time-tracking-dashboard" },
+    { name: "stats-preview", desc: "Widget analytics.", demo: "stats-preview" },
+    { name: "sign-up-form", desc: "Landing waitlist.", demo: "sign-up-form" },
+    { name: "summary", desc: "Audit de présence en ligne.", demo: "summary" },
+  ]},
+  { cat: "ERP & systèmes", color: "#f59e0b", repos: [
+    { name: "theme_liquid_glass_v2", desc: "Thème Odoo « liquid glass »." },
+    { name: "ai-dev-system-web", desc: "Interface du système AI Dev (TypeScript)." },
+    { name: "api-for-shiny-agency", desc: "API backend de Shiny." },
+  ]},
+];
