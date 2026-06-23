@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import { links, stats, stack, github } from "./data.js";
 
@@ -147,15 +148,27 @@ function Contact() {
 }
 
 export default function App() {
+  const glowRef = useRef(null);
+  const onMove = (e) => {
+    const el = glowRef.current;
+    if (!el) return;
+    el.style.setProperty("--mx", `${e.clientX}px`);
+    el.style.setProperty("--my", `${e.clientY}px`);
+  };
   return (
-    <>
-      <div className="mesh"><span className="blob blob-1" /><span className="blob blob-2" /><span className="blob blob-3" /></div>
+    <div onMouseMove={onMove}>
+      <div className="mesh">
+        <span className="blob blob-1" /><span className="blob blob-2" /><span className="blob blob-3" />
+        {/* cursor-reactive depth glow */}
+        <div ref={glowRef} aria-hidden className="absolute inset-0 hidden lg:block"
+          style={{ background: "radial-gradient(520px circle at var(--mx,70%) var(--my,25%), rgba(168,85,247,0.12), transparent 45%)" }} />
+      </div>
       <Nav />
       <main>
         <Hero />
         <GitHub />
         <Contact />
       </main>
-    </>
+    </div>
   );
 }
